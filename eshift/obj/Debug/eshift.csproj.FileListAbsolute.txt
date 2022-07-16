@@ -1,0 +1,17 @@
+C:\Users\adith\source\repos\eshift\eshift\bin\Debug\eshift.exe.config
+C:\Users\adith\source\repos\eshift\eshift\bin\Debug\eshift.exe
+C:\Users\adith\source\repos\eshift\eshift\bin\Debug\eshift.pdb
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.csproj.AssemblyReference.cache
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.csproj.SuggestedBindingRedirects.cache
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.Properties.Resources.resources
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.csproj.GenerateResource.cache
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.csproj.CoreCompileInputs.cache
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.exe
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.pdb
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.form_userLogin.resources
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.form_adminLogin.resources
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.form_userSignup.resources
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.Welcome.resources
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.form_userDashboard.resources
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.itemDialog.resources
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.adminDashboard.resources
