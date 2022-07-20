@@ -31,7 +31,7 @@ namespace eshift
                 SqlConnection con = sqlcon.Connect();
                 if (con.State == System.Data.ConnectionState.Open)
                 {
-                    String validateQ = @"select * from user_table where email = '"+email+"' and pass = '"+pass+"'";
+                    string validateQ = @"select * from user_table where email = '"+email+"' and pass = '"+pass+"'";
                     SqlCommand validateCmd = new SqlCommand(validateQ, con);
                     using(SqlDataReader reader = validateCmd.ExecuteReader())
                     {

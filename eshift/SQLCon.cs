@@ -9,7 +9,7 @@ namespace eshift
 {
     internal class SQLCon
     {
-        public SqlConnection con=null;
+        private SqlConnection con=null;
         public String cString = "Data Source=DESKTOP-CJ5H4TK;Initial Catalog=EshiftDatabase;Integrated Security=True";
 
         public SqlConnection Connect()

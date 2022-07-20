@@ -273,6 +273,12 @@ namespace eshift
             }else if (tabIndex == 1)
             {
                 loadAdminItems();
+            }else if (tabIndex == 2)
+            {
+                loadAdminDetails();
+            }else if (tabIndex == 3)
+            {
+                refreshDatagrid();
             }
         }
         private void loadAdminItems()
@@ -284,6 +290,7 @@ namespace eshift
             SqlCommand getItemsCmd = new SqlCommand(getItemsQ, con);
             try
             {
+                itemList.Clear();
                 using(SqlDataReader reader = getItemsCmd.ExecuteReader())
                 {
                     list_items.SuspendLayout();
@@ -309,16 +316,21 @@ namespace eshift
             }
 
             sqlcon.Disconnect();
+            updateNewItemcode();
+            changeEditBox(false);
         }
 
         private void list_items_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string itemName = list_items.SelectedItem.ToString().Trim();
-            int index = list_items.SelectedIndex;
-            txt_editCode.Text = itemList[index][0];
-            txt_editName.Text = itemList[index][1];
-            txt_editCost.Text = itemList[index][2].ToString();
-            changeEditBox(true);
+            if (list_items.SelectedIndex != -1)
+            {
+                string itemName = list_items.SelectedItem.ToString().Trim();
+                int index = list_items.SelectedIndex;
+                txt_editCode.Text = itemList[index][0];
+                txt_editName.Text = itemList[index][1];
+                txt_editCost.Text = itemList[index][2].ToString();
+                changeEditBox(true);
+            }
         }
         private void changeEditBox(bool state)
         {
@@ -330,14 +342,19 @@ namespace eshift
 
         private void btn_update_Click(object sender, EventArgs e)
         {
-
+            int itemcode = int.Parse(txt_editCode.Text.Trim());
+            string name = txt_editName.Text;
+            float cost = float.Parse(txt_editCost.Text.Trim());
+            updateItem(itemcode, name, cost);
+            loadAdminItems();
+            changeEditBox(false);
         }
         private void updateItem(int itemCode,string name,float cost)
         {
             SQLCon sqlcon = new SQLCon();
             SqlConnection con = sqlcon.Connect();
 
-            var updateQ = @"update admin_items set itemName='" + name + "',unitCost='" + cost + "'";
+            var updateQ = @"update admin_items set itemName='" + name + "',unitCost='" + cost + "' where itemCode='"+itemCode+"'";
             SqlCommand updateCmd = new SqlCommand(updateQ, con);
             try
             {
@@ -347,6 +364,181 @@ namespace eshift
                 MessageBox.Show(updateEx.Message);
             }
 
+            sqlcon.Disconnect();
+        }
+
+        private void btn_add_Click(object sender, EventArgs e)
+        {
+            SQLCon sqlcon = new SQLCon();
+            SqlConnection con = sqlcon.Connect();
+            int lastIndex = 0;
+            var getLatIndexQ = @"select top 1 * from admin_items order by itemCode desc";
+            SqlCommand getLastIndexCmd = new SqlCommand(getLatIndexQ, con);
+            using(SqlDataReader reader = getLastIndexCmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    lastIndex = int.Parse(reader[0].ToString());
+                }
+            }
+
+            var addItemQ = @"insert into admin_items values(" + (lastIndex + 1) + ",'" + txt_newName.Text + "','" + txt_newCost.Text + "','NULL','available')";
+            SqlCommand addItemCmd = new SqlCommand(addItemQ, con);
+            addItemCmd.ExecuteNonQuery();
+
+            sqlcon.Disconnect();
+            loadAdminItems();
+        }
+
+        private void updateNewItemcode()
+        {
+            SQLCon sqlcon = new SQLCon();
+            SqlConnection con = sqlcon.Connect();
+
+            var getItemCodeQ= @"select top 1 * from admin_items order by itemCode desc";
+            SqlCommand getItemCodeCmd = new SqlCommand(getItemCodeQ, con);
+            using(SqlDataReader reader = getItemCodeCmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    txt_newCode.Text = (int.Parse(reader[0].ToString())+1).ToString();
+                }
+            }
+
+            sqlcon.Disconnect();
+        }
+        private void loadAdminDetails()
+        {
+            SQLCon sqlcon = new SQLCon();
+            SqlConnection con=sqlcon.Connect();
+
+            var getAdminQ = @"select * from admin_table where email='" + adminDetails.getAdminMail() + "'";
+            SqlCommand getAdminCmd = new SqlCommand(getAdminQ, con);
+            using(SqlDataReader reader = getAdminCmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    txt_editMail.Text = reader[0].ToString();
+                    txt_editAdminPass.Text = reader[1].ToString();
+                    txt_editAdminName.Text = reader[2].ToString();
+                }
+            }
+
+            sqlcon.Disconnect();
+            txt_editAdminPass.Enabled = false;
+            txt_editAdminName.Enabled = false;
+        }
+
+        private void link_editName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            txt_editAdminName.Enabled = true;
+        }
+
+        private void link_editPass_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            txt_editAdminPass.Enabled = true;
+        }
+
+        private void btn_updateAdmin_Click(object sender, EventArgs e)
+        {
+            SQLCon sqlcon = new SQLCon();
+            SqlConnection con = sqlcon.Connect();
+
+            var updateAdminQ = @"update admin_table set fname='" + txt_editAdminName.Text + "',pass='" + txt_editAdminPass.Text + "' where email='" + adminDetails.getAdminMail() + "'";
+            SqlCommand updateAdminCmd = new SqlCommand(updateAdminQ, con);
+            try
+            {
+                updateAdminCmd.ExecuteNonQuery();
+            }catch(Exception updateEx)
+            {
+                MessageBox.Show(updateEx.Message);
+            }
+
+            sqlcon.Disconnect();
+            txt_editAdminName.Enabled = false;
+            txt_editAdminPass.Enabled = false;
+        }
+
+        private void btn_finished_Click(object sender, EventArgs e)
+        {
+            int jobid = int.Parse(list_jobs.SelectedItem.ToString().Split(':')[0].Trim());
+            setJobStatus(jobid, "finished");
+            disableManageButtons();
+            loadJobs();
+        }
+
+        private void refreshDatagrid()
+        {
+            SQLCon sqlcon = new SQLCon();
+            SqlConnection con = sqlcon.Connect();
+
+            //Data for all users details
+            if (rad_allUsers.Checked)
+            {
+                //set columns of datagrid
+                data_report.Columns.Clear();
+                data_report.Columns.Add("email", "Email");
+                data_report.Columns.Add("fname", "First Name");
+                data_report.Columns.Add("lname", "Last name");
+                data_report.Columns.Add("jobCount", "Number of Jobs");
+
+                //list to store records temporarily
+                var recList = new List<string[]>();
+
+                
+                var readUsersQ = @"select fname,lname,email from user_table";
+                SqlCommand readUsersCmd = new SqlCommand(readUsersQ, con);
+                try
+                {
+                    using(SqlDataReader reader = readUsersCmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var userData = new string[4];
+                            for (int n = 0; n < 3; n++)
+                            {
+                                
+                                userData[n] = reader[n].ToString();
+                            }
+                            recList.Add(userData);
+                        }
+                    }
+                    sqlcon.Disconnect();
+
+                    con = sqlcon.Connect();
+
+                    foreach (var rec in recList)
+                    {
+                        string usermail = rec[2];
+                        int count = 0;
+                        var getJobCountQ = @"select usermail from job_table where usermail='" + usermail + "'";
+                        SqlCommand getJobCountCmd = new SqlCommand(getJobCountQ, con);
+                        using(SqlDataReader reader= getJobCountCmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                count++;
+                            }
+                            rec[3] = count.ToString();
+                        }
+                    }
+                    
+                    
+                    
+                }catch(Exception readEx)
+                {
+                    MessageBox.Show(readEx.Message);
+                }
+                data_report.SuspendLayout();
+                data_report.Rows.Clear();
+                foreach (var rec in recList)
+                {
+                    data_report.Rows.Add(rec);
+
+                }
+                data_report.ResumeLayout();
+            }
+            
             sqlcon.Disconnect();
         }
     }
