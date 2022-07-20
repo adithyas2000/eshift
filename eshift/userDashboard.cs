@@ -105,7 +105,7 @@ namespace eshift
                                 itemArray[0] = int.Parse(reader[0].ToString());
                                 Debug.WriteLine("Found from admin_items : " + itemArray[0].ToString());
                             }
-                            itemArray[1] = int.Parse(splitItem[1].Trim());
+                            itemArray[1] = int.Parse(splitItem[1].Split('-')[0].Trim());
                             itemlist.Add(itemArray);
                         }
                         
@@ -234,7 +234,7 @@ namespace eshift
         private void form_userDashboard_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'eshiftDatabaseDataSet.adminTable' table. You can move, or remove it, as needed.
-           
+            this.Text ="Welcome "+ UserDetails.getFname();
             list_jobs.Width = (tab_jobs.Width - 24) / 2;
             list_jobs.Height = (tab_jobs.Height - 16);
             Point change = new Point(8, 0);

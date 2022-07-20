@@ -52,6 +52,7 @@
     <Compile Include="adminDashboard.Designer.cs">
       <DependentUpon>adminDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="adminDetails.cs" />
     <Compile Include="UserDetails.cs" />
     <Compile Include="SQLCon.cs" />
     <Compile Include="EshiftDatabaseDataSet.Designer.cs">

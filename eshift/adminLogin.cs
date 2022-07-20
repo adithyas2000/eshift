@@ -47,8 +47,12 @@ namespace eshift
                             valid = true;
 
                             adminDashboard adminDash = new adminDashboard();
+                            
+                            adminDetails.setAdminMail(email);
+                            adminDetails.setAdminName(reader[2].ToString());
                             adminDash.Show(this.Owner);
                             sqlcon.Disconnect();
+                            
                             this.Close();
                             break;
                         }
@@ -56,6 +60,7 @@ namespace eshift
                     if (!valid){
                         MessageBox.Show("Invalid username/password!");
                     }
+                    
                     valid = false;
 
                 }

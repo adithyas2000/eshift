@@ -39,6 +39,9 @@ namespace eshift
                         {
                             if(reader[0].ToString()==email && reader[1].ToString() == pass)
                             {
+                                //save user details to static class
+                                UserDetails.setUserMail(email);
+                                UserDetails.setFname(reader[2].ToString());
                                 valid = true;
                                 break;
                             }
@@ -64,8 +67,7 @@ namespace eshift
 
             if (valid)
             {
-                //save user details to static class
-                UserDetails.setUserMail(email);
+                
                 //if valid godi dashboard
                 form_userDashboard uDash = new form_userDashboard();
                 uDash.Show(this.Owner);
