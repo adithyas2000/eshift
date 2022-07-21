@@ -11,6 +11,14 @@ namespace eshift
         private static string adminMail = "";
         private static string adminName = "";
 
+        public static adminDashboard adminDashboard
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public static void setAdminMail(string mail)
         {
             adminMail = mail;

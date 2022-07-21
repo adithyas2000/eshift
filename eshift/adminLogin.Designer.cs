@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form_adminLogin));
             this.btn_back = new System.Windows.Forms.Button();
             this.btn_login = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -101,6 +102,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textPassword);
             this.Controls.Add(this.textEmail);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "form_adminLogin";
             this.Text = "Admin Login";
             this.ResumeLayout(false);

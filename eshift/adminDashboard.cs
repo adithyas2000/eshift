@@ -82,12 +82,15 @@ namespace eshift
         private void list_jobs_SelectedIndexChanged(object sender, EventArgs e)
         {
             //enable accept/reject/delete buttons
-            btn_accept.Enabled = true;
-            btn_delete.Enabled = true;
-            btn_reject.Enabled = true;
+            
 
             int index = list_jobs.SelectedIndex;
             if (index != -1) { 
+                btn_accept.Enabled = true;
+                btn_delete.Enabled = true;
+                btn_reject.Enabled = true;
+                btn_finished.Enabled = true;
+
                 string selectedRec = list_jobs.Items[index].ToString();
                 string[] selectedArray = selectedRec.Split(':');
                 string jobid = selectedArray[0].Trim();
@@ -134,6 +137,7 @@ namespace eshift
             else
             {
                 list_items.Items.Clear();
+                disableManageButtons();
             }
 
         }
@@ -221,6 +225,7 @@ namespace eshift
             btn_accept.Enabled = false;
             btn_delete.Enabled = false;
             btn_reject.Enabled = false;
+            btn_finished.Enabled = false;
         }
 
         private void btn_reject_Click(object sender, EventArgs e)
@@ -273,12 +278,15 @@ namespace eshift
             }else if (tabIndex == 1)
             {
                 loadAdminItems();
-            }else if (tabIndex == 2)
-            {
-                loadAdminDetails();
             }else if (tabIndex == 3)
             {
+                loadAdminDetails();
+            }else if (tabIndex == 4)
+            {
                 refreshDatagrid();
+            }else if (tabIndex == 2)
+            {
+                refreshCities();
             }
         }
         private void loadAdminItems()
@@ -324,11 +332,22 @@ namespace eshift
         {
             if (list_items.SelectedIndex != -1)
             {
+                
                 string itemName = list_items.SelectedItem.ToString().Trim();
                 int index = list_items.SelectedIndex;
                 txt_editCode.Text = itemList[index][0];
                 txt_editName.Text = itemList[index][1];
                 txt_editCost.Text = itemList[index][2].ToString();
+
+                if (itemList[index][4].ToString().Trim().Equals("available"))
+                {
+                    check_available.Checked = true;
+                }
+                else
+                {
+                    check_available.Checked = false;
+                    Debug.WriteLine("Check: " + itemList[index][4].ToString());
+                }
                 changeEditBox(true);
             }
         }
@@ -345,16 +364,25 @@ namespace eshift
             int itemcode = int.Parse(txt_editCode.Text.Trim());
             string name = txt_editName.Text;
             float cost = float.Parse(txt_editCost.Text.Trim());
-            updateItem(itemcode, name, cost);
+            
+            updateItem(itemcode, name, cost,check_available.Checked);
             loadAdminItems();
             changeEditBox(false);
         }
-        private void updateItem(int itemCode,string name,float cost)
+        private void updateItem(int itemCode,string name,float cost,bool available)
         {
             SQLCon sqlcon = new SQLCon();
             SqlConnection con = sqlcon.Connect();
-
-            var updateQ = @"update admin_items set itemName='" + name + "',unitCost='" + cost + "' where itemCode='"+itemCode+"'";
+            string state = "unavail";
+            if (available)
+            {
+                state = "available";
+            }
+            else
+            {
+                state = "unavail";
+            }
+            var updateQ = @"update admin_items set itemName='" + name + "',unitCost='" + cost + "',state='"+state+"' where itemCode='"+itemCode+"'";
             SqlCommand updateCmd = new SqlCommand(updateQ, con);
             try
             {
@@ -402,6 +430,7 @@ namespace eshift
                 while (reader.Read())
                 {
                     txt_newCode.Text = (int.Parse(reader[0].ToString())+1).ToString();
+                    Debug.WriteLine("Last item code: " + (reader[0].ToString()));
                 }
             }
 
@@ -537,9 +566,159 @@ namespace eshift
 
                 }
                 data_report.ResumeLayout();
+            }else if (rad_allJobs.Checked)
+            {
+                //set columns of datagrid view
+                data_report.Columns.Clear();
+                data_report.Columns.Add("jobid", "Job ID");
+                data_report.Columns.Add("usermail", "User Email");
+                data_report.Columns.Add("fromLoc", "From");
+                data_report.Columns.Add("toLoc", "To");
+                data_report.Columns.Add("date", "Job Date");
+                data_report.Columns.Add("status", "Status");
+
+                //temp list for records
+                var recList = new List<string[]>();
+
+                var getJobsQ = "select * from job_table";
+                SqlCommand getJobsCmd = new SqlCommand(getJobsQ, con);
+                try
+                {
+                    using(SqlDataReader reader = getJobsCmd.ExecuteReader())
+                    {
+                        
+                        while (reader.Read())
+                        {   var dataArray = new string[6];
+                            for(int n = 0; n < 6; n++)
+                            {
+                                dataArray[n] = reader[n].ToString();
+                            }
+                            recList.Add(dataArray);
+                        }
+                    }
+
+                }catch(Exception readEx)
+                {
+                    MessageBox.Show(readEx.Message);
+                }
+
+                //add records to datagrid
+                data_report.Rows.Clear();
+                foreach (var rec in recList)
+                {
+                    data_report.Rows.Add(rec);
+                }
             }
             
             sqlcon.Disconnect();
+        }
+
+        private void rad_allUsers_CheckedChanged(object sender, EventArgs e)
+        {
+            refreshDatagrid();
+        }
+
+        private void rad_allJobs_CheckedChanged(object sender, EventArgs e)
+        {
+            refreshDatagrid();
+        }
+
+        private void check_available_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void refreshCities()
+        {
+            SQLCon sqlcon = new SQLCon();
+            SqlConnection con = sqlcon.Connect();
+
+            var getCitiesQ = "select * from city_table";
+            SqlCommand getCityCmd = new SqlCommand(getCitiesQ, con);
+            try
+            {
+                using(SqlDataReader reader = getCityCmd.ExecuteReader())
+                {
+                    list_cities.Items.Clear();
+                    list_cities.SuspendLayout();
+                    while (reader.Read())
+                    {
+                        list_cities.Items.Add(reader[0].ToString().Trim());
+                    }
+                    list_cities.ResumeLayout();
+                }
+            }
+            catch (Exception cityEx)
+            {
+                MessageBox.Show(cityEx.Message);
+            }
+
+            sqlcon.Disconnect();
+        }
+
+        private void list_cities_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (list_cities.SelectedIndex != -1)
+            {
+                btn_removeCity.Enabled = true;
+            }
+            else
+            {
+                btn_removeCity.Enabled = false;
+            }
+        }
+
+        private void btn_removeCity_Click(object sender, EventArgs e)
+        {
+            string selectedCity = list_cities.SelectedItem.ToString().Trim();
+            SQLCon sqlcon = new SQLCon();
+            SqlConnection con = sqlcon.Connect();
+
+            var delCityQ = "delete from city_table where cityName='" + selectedCity + "'";
+            SqlCommand delCityCmd = new SqlCommand(delCityQ, con);
+            try
+            {
+                delCityCmd.ExecuteNonQuery();
+            }
+            catch (Exception delEx)
+            {
+                MessageBox.Show(delEx.Message);
+            }
+
+            sqlcon.Disconnect();
+            refreshCities();
+            btn_removeCity.Enabled = false;
+        }
+
+        private void txt_cityNew_TextChanged(object sender, EventArgs e)
+        {
+            if ((txt_cityNew.Text != "")&&(txt_cityNew.Text!=null))
+            {
+                btn_addCity.Enabled = true;
+            }
+            else
+            {
+                btn_addCity.Enabled = false;
+            }
+        }
+
+        private void btn_addCity_Click(object sender, EventArgs e)
+        {
+            SQLCon sqlcon = new SQLCon();
+            SqlConnection con = sqlcon.Connect();
+
+            var newCityQ = @"insert into city_table values ('" + txt_cityNew.Text + "')";
+            SqlCommand newCityCmd = new SqlCommand(newCityQ, con);
+            try
+            {
+                newCityCmd.ExecuteNonQuery();
+            }
+            catch (Exception cityEx)
+            {
+                MessageBox.Show(cityEx.Message);
+            }
+            txt_cityNew.Text = "";
+            sqlcon.Disconnect();
+            refreshCities();
         }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form_userSignup));
             this.label1 = new System.Windows.Forms.Label();
             this.textFname = new System.Windows.Forms.TextBox();
             this.textLname = new System.Windows.Forms.TextBox();
@@ -140,6 +141,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textFname);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "form_userSignup";
             this.Text = "User SignUp";
             this.Load += new System.EventHandler(this.form_userSignup_Load);

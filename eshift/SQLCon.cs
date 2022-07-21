@@ -12,6 +12,22 @@ namespace eshift
         private SqlConnection con=null;
         public String cString = "Data Source=DESKTOP-CJ5H4TK;Initial Catalog=EshiftDatabase;Integrated Security=True";
 
+        public adminDashboard adminDashboard
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public form_userDashboard form_userDashboard
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public SqlConnection Connect()
         {
             con = new SqlConnection(cString);

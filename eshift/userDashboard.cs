@@ -21,6 +21,14 @@ namespace eshift
             InitializeComponent();
         }
 
+        public itemDialog itemDialog
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("Are you sure you want to Log Out ?", "Confirm", MessageBoxButtons.YesNo);
@@ -222,25 +230,14 @@ namespace eshift
 
         private void form_userDashboard_Resize(object sender, EventArgs e)
         {
-            list_jobs.Width = (tab_jobs.Width - 24) / 2;
-            list_jobs.Height = (tab_jobs.Height - 16);
-            Point change = new Point(8, 0);
-            Point newLoc = new Point(tab_jobs.Width / 2 + change.X, box_job.Location.Y);
-            box_job.Location = newLoc;
-            box_job.Width = (tab_jobs.Width - 24) / 2;
-            box_job.Height = (tab_jobs.Height - 16);
+            dashboardLayout();
         }
 
         private void form_userDashboard_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'eshiftDatabaseDataSet.adminTable' table. You can move, or remove it, as needed.
             this.Text ="Welcome "+ UserDetails.getFname();
-            list_jobs.Width = (tab_jobs.Width - 24) / 2;
-            list_jobs.Height = (tab_jobs.Height - 16);
-            Point change = new Point(8, 0);
-            Point newLoc = new Point(tab_jobs.Width / 2 + change.X, box_job.Location.Y);
-            box_job.Location = newLoc;
-            box_job.Width = (tab_jobs.Width - 24) / 2;
+            dashboardLayout(); ;
 
 
             //load data
@@ -255,12 +252,7 @@ namespace eshift
 
         private void tab_account_Click(object sender, EventArgs e)
         {
-            list_jobs.Width = (tab_jobs.Width - 24) / 2;
-            list_jobs.Height = (tab_jobs.Height - 16);
-            Point change = new Point(8, 0);
-            Point newLoc = new Point(tab_jobs.Width / 2 + change.X, box_job.Location.Y);
-            box_job.Location = newLoc;
-            box_job.Width = (tab_jobs.Width - 24) / 2;
+            dashboardLayout();
         }
 
         private void link_fname_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -280,22 +272,12 @@ namespace eshift
 
         private void form_userDashboard_Click(object sender, EventArgs e)
         {
-            list_jobs.Width = (tab_jobs.Width - 24) / 2;
-            list_jobs.Height = (tab_jobs.Height - 16);
-            Point change = new Point(8, 0);
-            Point newLoc = new Point(tab_jobs.Width / 2 + change.X, box_job.Location.Y);
-            box_job.Location = newLoc;
-            box_job.Width = (tab_jobs.Width - 24) / 2;
+            dashboardLayout();
         }
 
         private void tabControl1_Click(object sender, EventArgs e)
         {
-            list_jobs.Width = (tab_jobs.Width - 24) / 2;
-            list_jobs.Height = (tab_jobs.Height - 16);
-            Point change = new Point(8, 0);
-            Point newLoc = new Point(tab_jobs.Width / 2 + change.X, box_job.Location.Y);
-            box_job.Location = newLoc;
-            box_job.Width = (tab_jobs.Width - 24) / 2;
+            dashboardLayout();
         }
 
         private void tab_add_Click(object sender, EventArgs e)
@@ -395,18 +377,7 @@ namespace eshift
             
             if (tabIndex == 1) 
             {//load data to 2nd tab if clicked on 2nd tab
-                list_jobs.Items.Clear();
-                var selectQ = @"select jobid,fromLoc,toLoc,date,status from job_table where usermail = '"+UserDetails.getUsermail()+"'";
-                SqlCommand selectCmd = new SqlCommand(selectQ, con);
-
-                using (SqlDataReader reader = selectCmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string jobText = reader[0].ToString()+": "+reader[1].ToString()+" TO "+reader[2]+" ON "+reader[3]+" : "+reader[4];
-                        list_jobs.Items.Add(jobText);
-                    }
-                }
+                refreshJobs();
             }else if (tabIndex == 2)
                 //load user data if tab 3 loaded
             {
@@ -431,42 +402,51 @@ namespace eshift
 
         private void list_jobs_SelectedValueChanged(object sender, EventArgs e)
         {
-            SQLCon sqlcon = new SQLCon();
-            SqlConnection con = sqlcon.Connect();
-
-            string selectedJob = list_jobs.SelectedItem.ToString();
-            string[] selectedJobSplit = selectedJob.Split(':');
-            int jobid = int.Parse(selectedJobSplit[0]);
-
-            var selectQ = @"select * from job_"+jobid+"_table";
-            SqlCommand selectCmd =new SqlCommand(selectQ, con);
-            using(SqlDataReader reader = selectCmd.ExecuteReader())
+            if (list_jobs.SelectedIndex != -1) 
             {
-                box_job.Items.Clear();
-                while (reader.Read())
+                btn_cancelJob.Enabled = true;
+                SQLCon sqlcon = new SQLCon();
+                SqlConnection con = sqlcon.Connect();
+
+                string selectedJob = list_jobs.SelectedItem.ToString();
+                string[] selectedJobSplit = selectedJob.Split(':');
+                int jobid = int.Parse(selectedJobSplit[0]);
+
+                var selectQ = @"select * from job_" + jobid + "_table";
+                SqlCommand selectCmd = new SqlCommand(selectQ, con);
+                using (SqlDataReader reader = selectCmd.ExecuteReader())
                 {
-                    int itemcode = int.Parse(reader[0].ToString());
-                    string itemName = "";
-                    var getItemQ = @"select itemName from admin_items where itemCode = '" + itemcode + "'";
-                    //create new temporary connection to server
-                    SQLCon sqlcon2 = new SQLCon();
-                    SqlConnection con2 = sqlcon2.Connect();
-                    SqlCommand getItemCmd = new SqlCommand(getItemQ, con2);
-                    using(SqlDataReader reader2 = getItemCmd.ExecuteReader())
+                    box_job.Items.Clear();
+                    while (reader.Read())
                     {
-                        while (reader2.Read())
+                        int itemcode = int.Parse(reader[0].ToString());
+                        string itemName = "";
+                        var getItemQ = @"select itemName from admin_items where itemCode = '" + itemcode + "'";
+                        //create new temporary connection to server
+                        SQLCon sqlcon2 = new SQLCon();
+                        SqlConnection con2 = sqlcon2.Connect();
+                        SqlCommand getItemCmd = new SqlCommand(getItemQ, con2);
+                        using (SqlDataReader reader2 = getItemCmd.ExecuteReader())
                         {
-                            itemName = reader2[0].ToString();
+                            while (reader2.Read())
+                            {
+                                itemName = reader2[0].ToString();
+                            }
                         }
+                        sqlcon2.Disconnect();
+                        string itemText = itemName + " X " + reader[1].ToString();
+                        box_job.Items.Add(itemText);
                     }
-                    sqlcon2.Disconnect();
-                    string itemText = itemName + " X " + reader[1].ToString();
-                    box_job.Items.Add(itemText);
                 }
+
+
+                sqlcon.Disconnect();
             }
-
-
-            sqlcon.Disconnect();
+            else
+            {
+                btn_cancelJob.Enabled = false;
+            }
+            
         }
 
         private void btn_update_Click(object sender, EventArgs e)
@@ -488,7 +468,7 @@ namespace eshift
             txt_pass.Enabled = false;
         }
 
-        public float calcSubtot(int iCode,int count)
+        private float calcSubtot(int iCode,int count)
         {
             float subtot = 0;
             SQLCon sqlcon = new SQLCon();
@@ -505,6 +485,62 @@ namespace eshift
             sqlcon.Disconnect();
             return subtot;
 
+        }
+        private void dashboardLayout()
+        {
+            list_jobs.Width = (tab_jobs.Width - 24) / 2;
+            list_jobs.Height = (tab_jobs.Height - 16) - 23;
+            Point change = new Point(8, 0);
+            Point newLoc = new Point(tab_jobs.Width / 2 + change.X, box_job.Location.Y);
+            box_job.Location = newLoc;
+            box_job.Width = (tab_jobs.Width - 24) / 2;
+            box_job.Height = (tab_jobs.Height - 16);
+        }
+
+        private void btn_cancelJob_Click(object sender, EventArgs e)
+        {
+            string job = list_jobs.SelectedItem.ToString();
+            string jobid = job.Split(':')[0].Trim();
+            SQLCon sqlcon = new SQLCon();
+            SqlConnection con = sqlcon.Connect();
+
+            var deleteJobQ = @"delete from job_table where jobid='" + jobid + "'";
+            SqlCommand deleteJobCmd = new SqlCommand(deleteJobQ, con);
+
+            var deleteJobTableQ = @"drop table job_" + jobid + "_table";
+            SqlCommand deleteTableCmd = new SqlCommand(deleteJobTableQ, con);
+            try
+            {
+                deleteJobCmd.ExecuteNonQuery();
+                deleteTableCmd.ExecuteNonQuery();
+            }catch(Exception delEx)
+            {
+                MessageBox.Show(delEx.Message);
+            }
+
+            sqlcon.Disconnect();
+            refreshJobs();
+            btn_cancelJob.Enabled = false;
+        }
+
+        private void refreshJobs()
+        {
+            SQLCon sqlcon = new SQLCon();
+            SqlConnection con = sqlcon.Connect();
+            list_jobs.Items.Clear();
+            box_job.Items.Clear();
+            var selectQ = @"select jobid,fromLoc,toLoc,date,status from job_table where usermail = '" + UserDetails.getUsermail() + "'";
+            SqlCommand selectCmd = new SqlCommand(selectQ, con);
+
+            using (SqlDataReader reader = selectCmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    string jobText = reader[0].ToString() + ": " + reader[1].ToString() + " TO " + reader[2] + " ON " + reader[3] + " : " + reader[4];
+                    list_jobs.Items.Add(jobText);
+                }
+            }
+            sqlcon.Disconnect();
         }
     }
 }

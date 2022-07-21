@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(adminDashboard));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tab_review = new System.Windows.Forms.TabPage();
             this.group_manage = new System.Windows.Forms.GroupBox();
+            this.btn_finished = new System.Windows.Forms.Button();
             this.btn_accept = new System.Windows.Forms.Button();
             this.btn_delete = new System.Windows.Forms.Button();
             this.btn_reject = new System.Windows.Forms.Button();
@@ -46,6 +48,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txt_newName = new System.Windows.Forms.TextBox();
             this.box_editItem = new System.Windows.Forms.GroupBox();
+            this.check_available = new System.Windows.Forms.CheckBox();
             this.btn_update = new System.Windows.Forms.Button();
             this.txt_editCode = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -54,6 +57,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.list_items = new System.Windows.Forms.ListBox();
+            this.tab_cities = new System.Windows.Forms.TabPage();
+            this.txt_cityNew = new System.Windows.Forms.TextBox();
+            this.btn_addCity = new System.Windows.Forms.Button();
+            this.btn_removeCity = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.list_cities = new System.Windows.Forms.ListBox();
             this.tab_account = new System.Windows.Forms.TabPage();
             this.label9 = new System.Windows.Forms.Label();
             this.txt_editAdminName = new System.Windows.Forms.TextBox();
@@ -64,23 +73,23 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txt_editMail = new System.Windows.Forms.TextBox();
             this.btn_updateAdmin = new System.Windows.Forms.Button();
-            this.btn_logout = new System.Windows.Forms.Button();
-            this.btn_finished = new System.Windows.Forms.Button();
             this.tab_reprots = new System.Windows.Forms.TabPage();
-            this.data_report = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rad_allUsers = new System.Windows.Forms.RadioButton();
             this.rad_allJobs = new System.Windows.Forms.RadioButton();
+            this.rad_allUsers = new System.Windows.Forms.RadioButton();
+            this.data_report = new System.Windows.Forms.DataGridView();
+            this.btn_logout = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tab_review.SuspendLayout();
             this.group_manage.SuspendLayout();
             this.tab_items.SuspendLayout();
             this.box_addItem.SuspendLayout();
             this.box_editItem.SuspendLayout();
+            this.tab_cities.SuspendLayout();
             this.tab_account.SuspendLayout();
             this.tab_reprots.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.data_report)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data_report)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -90,6 +99,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tab_review);
             this.tabControl1.Controls.Add(this.tab_items);
+            this.tabControl1.Controls.Add(this.tab_cities);
             this.tabControl1.Controls.Add(this.tab_account);
             this.tabControl1.Controls.Add(this.tab_reprots);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -125,6 +135,18 @@
             this.group_manage.Size = new System.Drawing.Size(359, 163);
             this.group_manage.TabIndex = 5;
             this.group_manage.TabStop = false;
+            // 
+            // btn_finished
+            // 
+            this.btn_finished.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.btn_finished.Enabled = false;
+            this.btn_finished.Location = new System.Drawing.Point(257, 19);
+            this.btn_finished.Name = "btn_finished";
+            this.btn_finished.Size = new System.Drawing.Size(75, 23);
+            this.btn_finished.TabIndex = 5;
+            this.btn_finished.Text = "Finished";
+            this.btn_finished.UseVisualStyleBackColor = false;
+            this.btn_finished.Click += new System.EventHandler(this.btn_finished_Click);
             // 
             // btn_accept
             // 
@@ -271,6 +293,7 @@
             // 
             this.box_editItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.box_editItem.Controls.Add(this.check_available);
             this.box_editItem.Controls.Add(this.btn_update);
             this.box_editItem.Controls.Add(this.txt_editCode);
             this.box_editItem.Controls.Add(this.label3);
@@ -284,6 +307,19 @@
             this.box_editItem.TabIndex = 1;
             this.box_editItem.TabStop = false;
             this.box_editItem.Text = "Edit Item";
+            // 
+            // check_available
+            // 
+            this.check_available.AutoSize = true;
+            this.check_available.Checked = true;
+            this.check_available.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.check_available.Location = new System.Drawing.Point(9, 160);
+            this.check_available.Name = "check_available";
+            this.check_available.Size = new System.Drawing.Size(104, 17);
+            this.check_available.TabIndex = 8;
+            this.check_available.Text = "Available to pick";
+            this.check_available.UseVisualStyleBackColor = true;
+            this.check_available.CheckedChanged += new System.EventHandler(this.check_available_CheckedChanged);
             // 
             // btn_update
             // 
@@ -358,6 +394,71 @@
             this.list_items.Size = new System.Drawing.Size(386, 212);
             this.list_items.TabIndex = 0;
             this.list_items.SelectedIndexChanged += new System.EventHandler(this.list_items_SelectedIndexChanged);
+            // 
+            // tab_cities
+            // 
+            this.tab_cities.Controls.Add(this.txt_cityNew);
+            this.tab_cities.Controls.Add(this.btn_addCity);
+            this.tab_cities.Controls.Add(this.btn_removeCity);
+            this.tab_cities.Controls.Add(this.label10);
+            this.tab_cities.Controls.Add(this.list_cities);
+            this.tab_cities.Location = new System.Drawing.Point(4, 22);
+            this.tab_cities.Name = "tab_cities";
+            this.tab_cities.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_cities.Size = new System.Drawing.Size(792, 377);
+            this.tab_cities.TabIndex = 4;
+            this.tab_cities.Text = "Manage Cities";
+            this.tab_cities.UseVisualStyleBackColor = true;
+            // 
+            // txt_cityNew
+            // 
+            this.txt_cityNew.Location = new System.Drawing.Point(228, 7);
+            this.txt_cityNew.Name = "txt_cityNew";
+            this.txt_cityNew.Size = new System.Drawing.Size(100, 20);
+            this.txt_cityNew.TabIndex = 4;
+            this.txt_cityNew.TextChanged += new System.EventHandler(this.txt_cityNew_TextChanged);
+            // 
+            // btn_addCity
+            // 
+            this.btn_addCity.Enabled = false;
+            this.btn_addCity.Location = new System.Drawing.Point(179, 33);
+            this.btn_addCity.Name = "btn_addCity";
+            this.btn_addCity.Size = new System.Drawing.Size(149, 23);
+            this.btn_addCity.TabIndex = 3;
+            this.btn_addCity.Text = "Add City";
+            this.btn_addCity.UseVisualStyleBackColor = true;
+            this.btn_addCity.Click += new System.EventHandler(this.btn_addCity_Click);
+            // 
+            // btn_removeCity
+            // 
+            this.btn_removeCity.Enabled = false;
+            this.btn_removeCity.Location = new System.Drawing.Point(4, 348);
+            this.btn_removeCity.Name = "btn_removeCity";
+            this.btn_removeCity.Size = new System.Drawing.Size(167, 23);
+            this.btn_removeCity.TabIndex = 2;
+            this.btn_removeCity.Text = "Remove City";
+            this.btn_removeCity.UseVisualStyleBackColor = true;
+            this.btn_removeCity.Click += new System.EventHandler(this.btn_removeCity_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(176, 10);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(46, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Add City";
+            // 
+            // list_cities
+            // 
+            this.list_cities.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.list_cities.FormattingEnabled = true;
+            this.list_cities.Location = new System.Drawing.Point(4, 7);
+            this.list_cities.Name = "list_cities";
+            this.list_cities.Size = new System.Drawing.Size(167, 329);
+            this.list_cities.TabIndex = 0;
+            this.list_cities.SelectedIndexChanged += new System.EventHandler(this.list_cities_SelectedIndexChanged);
             // 
             // tab_account
             // 
@@ -461,30 +562,6 @@
             this.btn_updateAdmin.UseVisualStyleBackColor = true;
             this.btn_updateAdmin.Click += new System.EventHandler(this.btn_updateAdmin_Click);
             // 
-            // btn_logout
-            // 
-            this.btn_logout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_logout.BackColor = System.Drawing.Color.IndianRed;
-            this.btn_logout.Location = new System.Drawing.Point(713, 410);
-            this.btn_logout.Name = "btn_logout";
-            this.btn_logout.Size = new System.Drawing.Size(75, 23);
-            this.btn_logout.TabIndex = 1;
-            this.btn_logout.Text = "LOGOUT";
-            this.btn_logout.UseVisualStyleBackColor = false;
-            this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
-            // 
-            // btn_finished
-            // 
-            this.btn_finished.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btn_finished.Enabled = false;
-            this.btn_finished.Location = new System.Drawing.Point(257, 19);
-            this.btn_finished.Name = "btn_finished";
-            this.btn_finished.Size = new System.Drawing.Size(75, 23);
-            this.btn_finished.TabIndex = 5;
-            this.btn_finished.Text = "Finished";
-            this.btn_finished.UseVisualStyleBackColor = false;
-            this.btn_finished.Click += new System.EventHandler(this.btn_finished_Click);
-            // 
             // tab_reprots
             // 
             this.tab_reprots.Controls.Add(this.groupBox1);
@@ -496,17 +573,6 @@
             this.tab_reprots.TabIndex = 3;
             this.tab_reprots.Text = "Reports";
             this.tab_reprots.UseVisualStyleBackColor = true;
-            // 
-            // data_report
-            // 
-            this.data_report.AllowUserToAddRows = false;
-            this.data_report.AllowUserToDeleteRows = false;
-            this.data_report.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.data_report.Location = new System.Drawing.Point(3, 6);
-            this.data_report.Name = "data_report";
-            this.data_report.ReadOnly = true;
-            this.data_report.Size = new System.Drawing.Size(394, 368);
-            this.data_report.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -522,6 +588,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select report to view";
             // 
+            // rad_allJobs
+            // 
+            this.rad_allJobs.AutoSize = true;
+            this.rad_allJobs.Location = new System.Drawing.Point(7, 43);
+            this.rad_allJobs.Name = "rad_allJobs";
+            this.rad_allJobs.Size = new System.Drawing.Size(58, 17);
+            this.rad_allJobs.TabIndex = 1;
+            this.rad_allJobs.Text = "All jobs";
+            this.rad_allJobs.UseVisualStyleBackColor = true;
+            this.rad_allJobs.CheckedChanged += new System.EventHandler(this.rad_allJobs_CheckedChanged);
+            // 
             // rad_allUsers
             // 
             this.rad_allUsers.AutoSize = true;
@@ -533,16 +610,33 @@
             this.rad_allUsers.TabStop = true;
             this.rad_allUsers.Text = "All users";
             this.rad_allUsers.UseVisualStyleBackColor = true;
+            this.rad_allUsers.CheckedChanged += new System.EventHandler(this.rad_allUsers_CheckedChanged);
             // 
-            // rad_allJobs
+            // data_report
             // 
-            this.rad_allJobs.AutoSize = true;
-            this.rad_allJobs.Location = new System.Drawing.Point(7, 43);
-            this.rad_allJobs.Name = "rad_allJobs";
-            this.rad_allJobs.Size = new System.Drawing.Size(58, 17);
-            this.rad_allJobs.TabIndex = 1;
-            this.rad_allJobs.Text = "All jobs";
-            this.rad_allJobs.UseVisualStyleBackColor = true;
+            this.data_report.AllowUserToAddRows = false;
+            this.data_report.AllowUserToDeleteRows = false;
+            this.data_report.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.data_report.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.data_report.Location = new System.Drawing.Point(3, 6);
+            this.data_report.Name = "data_report";
+            this.data_report.ReadOnly = true;
+            this.data_report.Size = new System.Drawing.Size(643, 368);
+            this.data_report.TabIndex = 0;
+            // 
+            // btn_logout
+            // 
+            this.btn_logout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_logout.BackColor = System.Drawing.Color.IndianRed;
+            this.btn_logout.Location = new System.Drawing.Point(713, 410);
+            this.btn_logout.Name = "btn_logout";
+            this.btn_logout.Size = new System.Drawing.Size(75, 23);
+            this.btn_logout.TabIndex = 1;
+            this.btn_logout.Text = "LOGOUT";
+            this.btn_logout.UseVisualStyleBackColor = false;
+            this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
             // 
             // adminDashboard
             // 
@@ -551,6 +645,7 @@
             this.ClientSize = new System.Drawing.Size(800, 445);
             this.Controls.Add(this.btn_logout);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "adminDashboard";
             this.Text = "Dashboard";
             this.Load += new System.EventHandler(this.adminDashboard_Load);
@@ -563,13 +658,15 @@
             this.box_addItem.PerformLayout();
             this.box_editItem.ResumeLayout(false);
             this.box_editItem.PerformLayout();
+            this.tab_cities.ResumeLayout(false);
+            this.tab_cities.PerformLayout();
             this.tab_account.ResumeLayout(false);
             this.tab_account.PerformLayout();
             this.tab_reprots.ResumeLayout(false);
             this.tab_reprots.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.data_report)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data_report)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -619,5 +716,12 @@
         private System.Windows.Forms.RadioButton rad_allJobs;
         private System.Windows.Forms.RadioButton rad_allUsers;
         private System.Windows.Forms.DataGridView data_report;
+        private System.Windows.Forms.CheckBox check_available;
+        private System.Windows.Forms.TabPage tab_cities;
+        private System.Windows.Forms.TextBox txt_cityNew;
+        private System.Windows.Forms.Button btn_addCity;
+        private System.Windows.Forms.Button btn_removeCity;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ListBox list_cities;
     }
 }

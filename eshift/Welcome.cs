@@ -19,6 +19,30 @@ namespace eshift
             InitializeComponent();
         }
 
+        public form_adminLogin form_adminLogin
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public form_userSignup form_userSignup
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public form_userLogin form_userLogin
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void rad_admin_CheckedChanged(object sender, EventArgs e)
         {
             if (rad_admin.Checked)

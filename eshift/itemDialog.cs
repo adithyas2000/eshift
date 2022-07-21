@@ -27,7 +27,7 @@ namespace eshift
             SQLCon sqlcon = new SQLCon();
             SqlConnection con =  sqlcon.Connect();
 
-            String selectQ = "select * from admin_items";
+            String selectQ = "select * from admin_items where state='available'";
             SqlCommand selectCmd = new SqlCommand(selectQ, con);
             int len = 0;
             bool recFound = false;

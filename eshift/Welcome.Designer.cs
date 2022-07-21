@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Welcome));
             this.btn_login = new System.Windows.Forms.Button();
             this.btn_signup = new System.Windows.Forms.Button();
             this.rad_admin = new System.Windows.Forms.RadioButton();
             this.rad_user = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_login
@@ -78,28 +78,18 @@
             this.rad_user.Text = "User";
             this.rad_user.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(211, 86);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Welcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(378, 204);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(178, 204);
             this.Controls.Add(this.rad_user);
             this.Controls.Add(this.rad_admin);
             this.Controls.Add(this.btn_signup);
             this.Controls.Add(this.btn_login);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Welcome";
             this.Text = " Welcome";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -114,7 +104,6 @@
         private System.Windows.Forms.Button btn_signup;
         private System.Windows.Forms.RadioButton rad_admin;
         private System.Windows.Forms.RadioButton rad_user;
-        private System.Windows.Forms.Button button1;
     }
 }
 

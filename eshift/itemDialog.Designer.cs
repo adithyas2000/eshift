@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(itemDialog));
             this.combo_item = new System.Windows.Forms.ComboBox();
             this.num_items = new System.Windows.Forms.NumericUpDown();
             this.btn_add = new System.Windows.Forms.Button();
@@ -37,6 +38,7 @@
             // 
             // combo_item
             // 
+            this.combo_item.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.combo_item.FormattingEnabled = true;
             this.combo_item.Location = new System.Drawing.Point(12, 12);
             this.combo_item.Name = "combo_item";
@@ -97,6 +99,7 @@
             this.Controls.Add(this.num_items);
             this.Controls.Add(this.combo_item);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "itemDialog";
             this.Text = "Add item";
             this.Load += new System.EventHandler(this.itemDialog_Load);

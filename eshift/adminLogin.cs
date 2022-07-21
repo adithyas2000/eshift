@@ -19,6 +19,14 @@ namespace eshift
             InitializeComponent();
         }
 
+        public adminDashboard adminDashboard
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void btn_back_Click(object sender, EventArgs e)
         {
             this.Owner.Show();

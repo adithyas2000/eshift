@@ -19,6 +19,14 @@ namespace eshift
             InitializeComponent();
         }
 
+        public form_userDashboard form_userDashboard
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void btn_login_Click(object sender, EventArgs e)
         {
             //Validations here

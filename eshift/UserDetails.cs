@@ -11,6 +11,14 @@ namespace eshift
        private static string usermail = "";
        private static string fname = "";
 
+        public static form_userDashboard form_userDashboard
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public static string getUsermail()
         {
             return usermail;

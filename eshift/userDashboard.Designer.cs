@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form_userDashboard));
             this.button1 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tab_add = new System.Windows.Forms.TabPage();
+            this.lbl_total = new System.Windows.Forms.Label();
             this.btn_removeItem = new System.Windows.Forms.Button();
             this.list_items = new System.Windows.Forms.ListBox();
             this.btn_selectItem = new System.Windows.Forms.Button();
@@ -44,8 +46,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tab_jobs = new System.Windows.Forms.TabPage();
+            this.box_job = new System.Windows.Forms.ListBox();
             this.list_jobs = new System.Windows.Forms.ListBox();
             this.tab_account = new System.Windows.Forms.TabPage();
+            this.btn_update = new System.Windows.Forms.Button();
             this.link_pass = new System.Windows.Forms.LinkLabel();
             this.link_lname = new System.Windows.Forms.LinkLabel();
             this.link_fname = new System.Windows.Forms.LinkLabel();
@@ -57,13 +61,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txt_fname = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.testBtn1 = new System.Windows.Forms.Button();
-            this.box_job = new System.Windows.Forms.ListBox();
-            this.btn_update = new System.Windows.Forms.Button();
+            this.btn_cancelJob = new System.Windows.Forms.Button();
             this.eshiftDatabaseDataSet = new eshift.EshiftDatabaseDataSet();
             this.adminTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.adminTableTableAdapter = new eshift.EshiftDatabaseDataSetTableAdapters.adminTableTableAdapter();
-            this.lbl_total = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tab_add.SuspendLayout();
             this.tab_jobs.SuspendLayout();
@@ -104,7 +105,6 @@
             // tab_add
             // 
             this.tab_add.Controls.Add(this.lbl_total);
-            this.tab_add.Controls.Add(this.testBtn1);
             this.tab_add.Controls.Add(this.btn_removeItem);
             this.tab_add.Controls.Add(this.list_items);
             this.tab_add.Controls.Add(this.btn_selectItem);
@@ -124,6 +124,15 @@
             this.tab_add.UseVisualStyleBackColor = true;
             this.tab_add.Click += new System.EventHandler(this.tab_add_Click);
             this.tab_add.Enter += new System.EventHandler(this.tab_add_Enter);
+            // 
+            // lbl_total
+            // 
+            this.lbl_total.AutoSize = true;
+            this.lbl_total.Location = new System.Drawing.Point(628, 334);
+            this.lbl_total.Name = "lbl_total";
+            this.lbl_total.Size = new System.Drawing.Size(34, 13);
+            this.lbl_total.TabIndex = 13;
+            this.lbl_total.Text = "Total:";
             // 
             // btn_removeItem
             // 
@@ -176,6 +185,7 @@
             // 
             // combo_endCity
             // 
+            this.combo_endCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.combo_endCity.FormattingEnabled = true;
             this.combo_endCity.Location = new System.Drawing.Point(63, 42);
             this.combo_endCity.Name = "combo_endCity";
@@ -185,6 +195,7 @@
             // 
             // combo_startCity
             // 
+            this.combo_startCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.combo_startCity.FormattingEnabled = true;
             this.combo_startCity.Location = new System.Drawing.Point(63, 7);
             this.combo_startCity.Name = "combo_startCity";
@@ -230,6 +241,7 @@
             // 
             // tab_jobs
             // 
+            this.tab_jobs.Controls.Add(this.btn_cancelJob);
             this.tab_jobs.Controls.Add(this.box_job);
             this.tab_jobs.Controls.Add(this.list_jobs);
             this.tab_jobs.Location = new System.Drawing.Point(4, 22);
@@ -240,14 +252,22 @@
             this.tab_jobs.Text = "View jobs";
             this.tab_jobs.UseVisualStyleBackColor = true;
             // 
+            // box_job
+            // 
+            this.box_job.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.box_job.FormattingEnabled = true;
+            this.box_job.Location = new System.Drawing.Point(385, 6);
+            this.box_job.Name = "box_job";
+            this.box_job.Size = new System.Drawing.Size(482, 368);
+            this.box_job.TabIndex = 0;
+            // 
             // list_jobs
             // 
-            this.list_jobs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.list_jobs.FormattingEnabled = true;
             this.list_jobs.Location = new System.Drawing.Point(8, 6);
             this.list_jobs.Name = "list_jobs";
-            this.list_jobs.Size = new System.Drawing.Size(371, 368);
+            this.list_jobs.Size = new System.Drawing.Size(371, 342);
             this.list_jobs.TabIndex = 0;
             this.list_jobs.SelectedValueChanged += new System.EventHandler(this.list_jobs_SelectedValueChanged);
             // 
@@ -273,6 +293,17 @@
             this.tab_account.Text = "Manage account";
             this.tab_account.UseVisualStyleBackColor = true;
             this.tab_account.Click += new System.EventHandler(this.tab_account_Click);
+            // 
+            // btn_update
+            // 
+            this.btn_update.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_update.Location = new System.Drawing.Point(779, 356);
+            this.btn_update.Name = "btn_update";
+            this.btn_update.Size = new System.Drawing.Size(93, 23);
+            this.btn_update.TabIndex = 11;
+            this.btn_update.Text = "Save changes";
+            this.btn_update.UseVisualStyleBackColor = true;
+            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
             // 
             // link_pass
             // 
@@ -376,36 +407,17 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "First Name";
             // 
-            // testBtn1
+            // btn_cancelJob
             // 
-            this.testBtn1.Location = new System.Drawing.Point(537, 63);
-            this.testBtn1.Name = "testBtn1";
-            this.testBtn1.Size = new System.Drawing.Size(75, 23);
-            this.testBtn1.TabIndex = 12;
-            this.testBtn1.Text = "TestFunc1";
-            this.testBtn1.UseVisualStyleBackColor = true;
-            this.testBtn1.Click += new System.EventHandler(this.testBtn1_Click);
-            // 
-            // box_job
-            // 
-            this.box_job.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.box_job.FormattingEnabled = true;
-            this.box_job.Location = new System.Drawing.Point(385, 6);
-            this.box_job.Name = "box_job";
-            this.box_job.Size = new System.Drawing.Size(482, 368);
-            this.box_job.TabIndex = 0;
-            // 
-            // btn_update
-            // 
-            this.btn_update.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_update.Location = new System.Drawing.Point(779, 356);
-            this.btn_update.Name = "btn_update";
-            this.btn_update.Size = new System.Drawing.Size(93, 23);
-            this.btn_update.TabIndex = 11;
-            this.btn_update.Text = "Save changes";
-            this.btn_update.UseVisualStyleBackColor = true;
-            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
+            this.btn_cancelJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_cancelJob.Enabled = false;
+            this.btn_cancelJob.Location = new System.Drawing.Point(8, 355);
+            this.btn_cancelJob.Name = "btn_cancelJob";
+            this.btn_cancelJob.Size = new System.Drawing.Size(75, 23);
+            this.btn_cancelJob.TabIndex = 1;
+            this.btn_cancelJob.Text = "Cancel Job";
+            this.btn_cancelJob.UseVisualStyleBackColor = true;
+            this.btn_cancelJob.Click += new System.EventHandler(this.btn_cancelJob_Click);
             // 
             // eshiftDatabaseDataSet
             // 
@@ -421,15 +433,6 @@
             // 
             this.adminTableTableAdapter.ClearBeforeFill = true;
             // 
-            // lbl_total
-            // 
-            this.lbl_total.AutoSize = true;
-            this.lbl_total.Location = new System.Drawing.Point(628, 334);
-            this.lbl_total.Name = "lbl_total";
-            this.lbl_total.Size = new System.Drawing.Size(34, 13);
-            this.lbl_total.TabIndex = 13;
-            this.lbl_total.Text = "Total:";
-            // 
             // form_userDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -437,6 +440,7 @@
             this.ClientSize = new System.Drawing.Size(883, 450);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "form_userDashboard";
             this.Text = "Dashboard";
             this.Load += new System.EventHandler(this.form_userDashboard_Load);
@@ -484,12 +488,12 @@
         private System.Windows.Forms.TextBox txt_fname;
         private System.Windows.Forms.ListBox list_items;
         private System.Windows.Forms.Button btn_removeItem;
-        private System.Windows.Forms.Button testBtn1;
         private System.Windows.Forms.ListBox box_job;
         private System.Windows.Forms.Button btn_update;
         private EshiftDatabaseDataSet eshiftDatabaseDataSet;
         private System.Windows.Forms.BindingSource adminTableBindingSource;
         private EshiftDatabaseDataSetTableAdapters.adminTableTableAdapter adminTableTableAdapter;
         private System.Windows.Forms.Label lbl_total;
+        private System.Windows.Forms.Button btn_cancelJob;
     }
 }

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="eshift.itemDialog" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAIACIAACEAABiAAAACAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>itemDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eshift.form_userDashboard" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>iYAAAgkACKgAiBQ4AAKAgFADEem4ABghuEkQgAAwJgA=</HashCode>
+      <FileName>userDashboard.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="itemDialog" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="eshift.Welcome">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <Members>
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>EAAgAAAAECAAgAAAAACAAAACAIAQAAAAAEQIAAAkAAA=</HashCode>
+      <FileName>Welcome.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="form_adminLogin" />
+      <Property Name="form_userSignup" />
+      <Property Name="form_userLogin" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="eshift.form_userLogin" Collapsed="true">
+    <Position X="3" Y="4.25" Width="1.5" />
+    <AssociationLine Name="form_userDashboard" Type="eshift.form_userDashboard" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.5" Y="4.562" />
+        <Point X="4.875" Y="4.562" />
+        <Point X="4.875" Y="2.995" />
+        <Point X="5.75" Y="2.995" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAACAAABAEACCAAAACAAAAAAAAAQAoACAAAAA=</HashCode>
+      <FileName>userLogin.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="form_userDashboard" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="eshift.form_userSignup" Collapsed="true">
+    <Position X="3" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAAACAAAACAAAYAAAAIWAEACAAAAA=</HashCode>
+      <FileName>userSignup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eshift.form_adminLogin">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="btn_back" Hidden="true" />
+      <Field Name="btn_login" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="label2" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAACAAABAAACCAAAACAAAAAAAAAUAKAAAAAAA=</HashCode>
+      <FileName>adminLogin.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="adminDashboard" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="eshift.adminDashboard">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ugAWUgkWBqMKgBSCYBiodRDCFCgAQgABADshAFOaBgk=</HashCode>
+      <FileName>adminDashboard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="eshift.adminDetails" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABEAABAAAAAAAAAAAACQAAAQAQ=</HashCode>
+      <FileName>adminDetails.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="adminDashboard" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="eshift.UserDetails" Collapsed="true">
+    <Position X="6.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUAUBAAAAAAAAAAAAAAAAAAAAAAAAAAABAAgAAAAAAA=</HashCode>
+      <FileName>UserDetails.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="form_userDashboard" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="eshift.SQLCon" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAiAAAABAA=</HashCode>
+      <FileName>SQLCon.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="adminDashboard" />
+      <Property Name="form_userDashboard" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
