@@ -79,6 +79,7 @@
             this.rad_allUsers = new System.Windows.Forms.RadioButton();
             this.data_report = new System.Windows.Forms.DataGridView();
             this.btn_logout = new System.Windows.Forms.Button();
+            this.radFinishedJobs = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tab_review.SuspendLayout();
             this.group_manage.SuspendLayout();
@@ -579,6 +580,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSize = true;
+            this.groupBox1.Controls.Add(this.radFinishedJobs);
             this.groupBox1.Controls.Add(this.rad_allJobs);
             this.groupBox1.Controls.Add(this.rad_allUsers);
             this.groupBox1.Location = new System.Drawing.Point(652, 6);
@@ -637,6 +639,17 @@
             this.btn_logout.Text = "LOGOUT";
             this.btn_logout.UseVisualStyleBackColor = false;
             this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
+            // 
+            // radFinishedJobs
+            // 
+            this.radFinishedJobs.AutoSize = true;
+            this.radFinishedJobs.Location = new System.Drawing.Point(7, 66);
+            this.radFinishedJobs.Name = "radFinishedJobs";
+            this.radFinishedJobs.Size = new System.Drawing.Size(89, 17);
+            this.radFinishedJobs.TabIndex = 2;
+            this.radFinishedJobs.Text = "Finished Jobs";
+            this.radFinishedJobs.UseVisualStyleBackColor = true;
+            this.radFinishedJobs.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // adminDashboard
             // 
@@ -723,5 +736,6 @@
         private System.Windows.Forms.Button btn_removeCity;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox list_cities;
+        private System.Windows.Forms.RadioButton radFinishedJobs;
     }
 }

@@ -9,10 +9,12 @@ namespace eshift
 {
     internal class SQLCon
     {
+        //exporting SqlConnetion object
         private SqlConnection con=null;
+        //Connection string for SQL Databse
         public String cString = "Data Source=DESKTOP-CJ5H4TK;Initial Catalog=EshiftDatabase;Integrated Security=True";
 
-        public adminDashboard adminDashboard
+        public adminDashboard SQL_Connection
         {
             get => default;
             set
@@ -20,7 +22,7 @@ namespace eshift
             }
         }
 
-        public form_userDashboard form_userDashboard
+        public form_userDashboard SQL_Connection2
         {
             get => default;
             set
@@ -28,6 +30,7 @@ namespace eshift
             }
         }
 
+        //Initialize a connection to dba d return sqlconnection obj
         public SqlConnection Connect()
         {
             con = new SqlConnection(cString);
@@ -35,6 +38,7 @@ namespace eshift
             return con;
         }
 
+        //Disconnect the connection started by the current instance
         public SqlConnection Disconnect()
         {
             if(con != null)

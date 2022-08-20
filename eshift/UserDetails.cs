@@ -11,7 +11,7 @@ namespace eshift
        private static string usermail = "";
        private static string fname = "";
 
-        public static form_userDashboard form_userDashboard
+        public static form_userDashboard User_Details
         {
             get => default;
             set
@@ -39,6 +39,7 @@ namespace eshift
             fname = name;
         }
 
+        //Clear details - call this method on logout
         public static void clear()
         {
             setUserMail("");

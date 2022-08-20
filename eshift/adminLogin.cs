@@ -19,7 +19,7 @@ namespace eshift
             InitializeComponent();
         }
 
-        public adminDashboard adminDashboard
+        public adminDashboard Admin_Dashboard
         {
             get => default;
             set

@@ -28,6 +28,7 @@ namespace eshift
             DialogResult dr = MessageBox.Show("Are you sure you want to Log Out ?", "Confirm", MessageBoxButtons.YesNo);
             if (dr == DialogResult.Yes)
             {
+                adminDetails.clear();
                 this.Owner.Show();
                 this.Close();
             }
@@ -608,6 +609,50 @@ namespace eshift
                 {
                     data_report.Rows.Add(rec);
                 }
+            }else if (radFinishedJobs.Checked)
+            {
+                //set columns of datagrid view
+                data_report.Columns.Clear();
+                data_report.Columns.Add("jobid", "Job ID");
+                data_report.Columns.Add("usermail", "User Email");
+                data_report.Columns.Add("fromLoc", "From");
+                data_report.Columns.Add("toLoc", "To");
+                data_report.Columns.Add("date", "Job Date");
+                data_report.Columns.Add("status", "Status");
+
+                //temp list for records
+                var recList = new List<string[]>();
+
+                var getJobsQ = "select * from job_table where status='finished'";
+                SqlCommand getJobsCmd = new SqlCommand(getJobsQ, con);
+                try
+                {
+                    using (SqlDataReader reader = getJobsCmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            var dataArray = new string[6];
+                            for (int n = 0; n < 6; n++)
+                            {
+                                dataArray[n] = reader[n].ToString();
+                            }
+                            recList.Add(dataArray);
+                        }
+                    }
+
+                }
+                catch (Exception readEx)
+                {
+                    MessageBox.Show(readEx.Message);
+                }
+
+                //add records to datagrid
+                data_report.Rows.Clear();
+                foreach (var rec in recList)
+                {
+                    data_report.Rows.Add(rec);
+                }
             }
             
             sqlcon.Disconnect();
@@ -719,6 +764,11 @@ namespace eshift
             txt_cityNew.Text = "";
             sqlcon.Disconnect();
             refreshCities();
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            refreshDatagrid();
         }
     }
 }

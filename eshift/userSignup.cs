@@ -19,6 +19,14 @@ namespace eshift
             InitializeComponent();
         }
 
+        public Welcome Welcome
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void form_userSignup_Load(object sender, EventArgs e)
         {
 

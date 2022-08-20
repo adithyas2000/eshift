@@ -19,7 +19,7 @@ namespace eshift
             InitializeComponent();
         }
 
-        public form_userDashboard form_userDashboard
+        public form_userDashboard User_Dashboard
         {
             get => default;
             set

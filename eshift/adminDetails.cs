@@ -11,7 +11,7 @@ namespace eshift
         private static string adminMail = "";
         private static string adminName = "";
 
-        public static adminDashboard adminDashboard
+        public static adminDashboard Admin_Details
         {
             get => default;
             set
@@ -37,6 +37,12 @@ namespace eshift
         public static string getAdminName()
         {
             return adminName;
+        }
+
+        public static void clear()
+        {
+            setAdminMail("");
+            setAdminName("");
         }
     }
 }

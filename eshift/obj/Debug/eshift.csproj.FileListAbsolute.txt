@@ -15,3 +15,8 @@ C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.Welcome.resources
 C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.form_userDashboard.resources
 C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.itemDialog.resources
 C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.adminDashboard.resources
+C:\Users\adith\source\repos\eshift\eshift\bin\Debug\eshift.exe.manifest
+C:\Users\adith\source\repos\eshift\eshift\bin\Debug\eshift.application
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.TrustInfo.xml
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.exe.manifest
+C:\Users\adith\source\repos\eshift\eshift\obj\Debug\eshift.application

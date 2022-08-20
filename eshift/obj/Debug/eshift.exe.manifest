@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="eshift.exe" size="645088">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="eshift.exe" size="654304">
       <assemblyIdentity name="eshift" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Cctf9l2KhSVtu8123i9egN9OaIXjzJHcUL38EwG16d8=</dsig:DigestValue>
+        <dsig:DigestValue>wftjcY52nelobF05Oyq6TeWIzJXvuaB+IJk3DZlX7ns=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

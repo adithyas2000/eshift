@@ -19,7 +19,7 @@ namespace eshift
             InitializeComponent();
         }
 
-        public form_adminLogin form_adminLogin
+        public form_adminLogin Admin_Login
         {
             get => default;
             set
@@ -27,7 +27,7 @@ namespace eshift
             }
         }
 
-        public form_userSignup form_userSignup
+        public form_userSignup User_Signup
         {
             get => default;
             set
@@ -35,7 +35,7 @@ namespace eshift
             }
         }
 
-        public form_userLogin form_userLogin
+        public form_userLogin User_Login
         {
             get => default;
             set
